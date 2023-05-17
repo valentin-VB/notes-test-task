@@ -13,7 +13,7 @@ function NoteFilter() {
       size="small"
       variant="filled"
       onChange={(e) => context?.setFilter(e.currentTarget.value)}
-      sx={{ maxWidth: "500px", paddingRight: "25px" }}
+      sx={{ maxWidth: "500px" }}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">

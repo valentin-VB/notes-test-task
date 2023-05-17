@@ -22,15 +22,16 @@ function Sidebar() {
     }) ?? [];
 
   return (
-    <Box
-      sx={{
-        backgroundColor: "#ecf5f0",
-        height: "100vh",
-        pt: "15px",
-        pb: "15px",
-      }}
-    >
-      <ul>
+    <Box>
+      <Box
+        component="ul"
+        sx={{
+          backgroundColor: "#ecf5f0",
+          "@media (min-width: 600px)": {
+            height: "100vh",
+          },
+        }}
+      >
         {visibleNotes.map((note, index) => (
           <ListItem
             key={note.id}
@@ -40,7 +41,7 @@ function Sidebar() {
             onNoteClick={handleNoteClick}
           />
         ))}
-      </ul>
+      </Box>
     </Box>
   );
 }

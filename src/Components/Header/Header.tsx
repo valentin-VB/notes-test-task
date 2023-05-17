@@ -33,6 +33,7 @@ function Header({ onAddBtnClick }: { onAddBtnClick: () => Promise<void> }) {
       <Toolbar
         sx={{
           justifyContent: "space-between",
+          pl: "5px !important",
         }}
       >
         <Box sx={{ display: "flex", flexWrap: "nowrap" }}>

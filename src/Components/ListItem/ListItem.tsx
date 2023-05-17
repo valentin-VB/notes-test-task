@@ -48,7 +48,7 @@ function ListItem({
         });
       }}
     >
-      <Box sx={{ width: "100%", fontWeight: 500 }}>
+      <Box sx={{ width: "100%" }}>
         <Typography
           noWrap
           sx={{

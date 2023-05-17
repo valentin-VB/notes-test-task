@@ -37,26 +37,7 @@ function Workspace({ note }: { note: ICurrentNote | null }) {
       toolbar: toolbarButtons,
     };
   }, []) as EasyMDE.Options;
-  // const options = {
-  //   toolbar: [
-  //     "bold",
-  //     "italic",
-  //     "heading",
-  //     "|",
-  //     "quote",
-  //     "code",
-  //     "unordered-list",
-  //     "ordered-list",
-  //   ],
-  // } as EasyMDE.Options;
 
-  // useEffect(() => {
-  //   if (inputContext && ref) {
-  //     inputContext.inputRef?.current = ref.current;
-  //   }
-  // }, [inputContext]);
-
-  //   console.log("value:", value);
   return (
     <Box sx={{ p: "20px" }}>
       <Typography sx={{ textAlign: "center", mb: "15px" }}>

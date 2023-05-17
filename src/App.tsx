@@ -58,6 +58,7 @@ function App() {
         setIsNoteCreated(false);
         setIsNoteDelete(false);
         setIsBlur(false);
+        setIsMarkdownShown(false);
       }
     };
     fetchAllNotes();
@@ -123,7 +124,7 @@ function App() {
                     {/* {isLoading && <CircularProgress />} */}
                     <Sidebar />
                   </Grid>
-                  <Grid item xs={0} md={9}>
+                  <Grid item xs={12} md={9}>
                     <Workspace note={currentNote} />
                   </Grid>
                 </Grid>
