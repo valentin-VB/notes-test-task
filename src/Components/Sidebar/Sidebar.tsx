@@ -22,7 +22,14 @@ function Sidebar() {
     }) ?? [];
 
   return (
-    <Box sx={{ backgroundColor: "#cbcbcbf" }}>
+    <Box
+      sx={{
+        backgroundColor: "#ecf5f0",
+        height: "100vh",
+        pt: "15px",
+        pb: "15px",
+      }}
+    >
       <ul>
         {visibleNotes.map((note, index) => (
           <ListItem

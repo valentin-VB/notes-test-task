@@ -1,4 +1,4 @@
-import { ListItemButton, Typography } from "@mui/material";
+import { ListItemButton, Typography, Box } from "@mui/material";
 import { INote } from "../../Services/types";
 import { getFirstKeyValue, getFormattedDate } from "Services/helpers";
 import { useContext, useEffect, useState } from "react";
@@ -34,6 +34,10 @@ function ListItem({
     <ListItemButton
       component="li"
       selected={selected === index}
+      sx={{
+        borderBottom: "1px solid #5db09a",
+        minHeight: "90px",
+      }}
       onClick={() => {
         onNoteClick(index);
         noteContext?.setCurrentNote({
@@ -44,10 +48,18 @@ function ListItem({
         });
       }}
     >
-      <Typography>
-        {shouldListTitleUpdate ? textContext?.currentText : title}
-      </Typography>
-      <p>{formattedDate}</p>
+      <Box sx={{ width: "100%", fontWeight: 500 }}>
+        <Typography
+          noWrap
+          sx={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {shouldListTitleUpdate ? textContext?.currentText : title}
+        </Typography>
+        <Typography>{formattedDate}</Typography>
+      </Box>
     </ListItemButton>
   );
 }

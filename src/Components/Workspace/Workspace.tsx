@@ -1,7 +1,7 @@
 import { ICurrentNote } from "Services/types";
 import { useState, useEffect, useContext, useMemo } from "react";
 import { CurrentNoteText, InputState } from "../../App";
-import { Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import SimpleMDE, { SimpleMdeToCodemirrorEvents } from "react-simplemde-editor";
 
 function Workspace({ note }: { note: ICurrentNote | null }) {
@@ -19,7 +19,36 @@ function Workspace({ note }: { note: ICurrentNote | null }) {
     return {
       blur: () => inputContext?.setIsBlur(true),
     } as SimpleMdeToCodemirrorEvents;
-  }, []);
+  }, [inputContext]);
+
+  const options = useMemo(() => {
+    const toolbarButtons = [
+      "bold",
+      "italic",
+      "heading",
+      "unordered-list",
+      "ordered-list",
+      "link",
+      "quote",
+      "code",
+    ];
+
+    return {
+      toolbar: toolbarButtons,
+    };
+  }, []) as EasyMDE.Options;
+  // const options = {
+  //   toolbar: [
+  //     "bold",
+  //     "italic",
+  //     "heading",
+  //     "|",
+  //     "quote",
+  //     "code",
+  //     "unordered-list",
+  //     "ordered-list",
+  //   ],
+  // } as EasyMDE.Options;
 
   // useEffect(() => {
   //   if (inputContext && ref) {
@@ -29,14 +58,17 @@ function Workspace({ note }: { note: ICurrentNote | null }) {
 
   //   console.log("value:", value);
   return (
-    <div>
-      <span>{note?.updated_at}</span>
+    <Box sx={{ p: "20px" }}>
+      <Typography sx={{ textAlign: "center", mb: "15px" }}>
+        {note?.updated_at}
+      </Typography>
       {note && (
         <>
           {inputContext?.isMarkdownShown ? (
             <SimpleMDE
               value={value}
               events={events}
+              options={options}
               onChange={(value) => {
                 setValue(value);
                 context?.setCurrentText(value);
@@ -47,7 +79,7 @@ function Workspace({ note }: { note: ICurrentNote | null }) {
           )}
         </>
       )}
-    </div>
+    </Box>
   );
 }
 

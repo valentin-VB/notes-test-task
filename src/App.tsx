@@ -17,6 +17,7 @@ import Header from "Components/Header/Header";
 import Modal from "Components/Modal/Modal";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
+import { Box } from "@mui/material";
 
 export const NotesContext = createContext<INote[] | null>(null);
 export const CurrentNote = createContext<ICurrentNoteContext | null>(null);
@@ -116,6 +117,7 @@ function App() {
                 }}
               >
                 <Header onAddBtnClick={handleAddBtnClick} />
+
                 <Grid container component="main">
                   <Grid item xs={12} md={3}>
                     {/* {isLoading && <CircularProgress />} */}
@@ -125,6 +127,7 @@ function App() {
                     <Workspace note={currentNote} />
                   </Grid>
                 </Grid>
+
                 <Modal handleDeleteBthClick={handleDeleteBthClick} />
               </InputState.Provider>
             </ModalContext.Provider>

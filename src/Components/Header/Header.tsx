@@ -23,11 +23,20 @@ function Header({ onAddBtnClick }: { onAddBtnClick: () => Promise<void> }) {
   return (
     <AppBar
       component="header"
-      sx={{ backgroundColor: "#dbf7e8", pt: "5px", pb: "5px" }}
+      sx={{
+        position: "sticky",
+        backgroundColor: "#dbf7e8",
+        pt: "5px",
+        pb: "5px",
+      }}
     >
-      <Toolbar sx={{ justifyContent: "space-between" }}>
-        <Box>
-          <Button sx={{ mr: "15px" }} onClick={() => onAddBtnClick()}>
+      <Toolbar
+        sx={{
+          justifyContent: "space-between",
+        }}
+      >
+        <Box sx={{ display: "flex", flexWrap: "nowrap" }}>
+          <Button onClick={() => onAddBtnClick()}>
             <AddIcon></AddIcon>
           </Button>
           <Button
@@ -43,7 +52,6 @@ function Header({ onAddBtnClick }: { onAddBtnClick: () => Promise<void> }) {
             <ModeEditOutlineIcon />
           </Button>
         </Box>
-
         <NoteFilter />
       </Toolbar>
     </AppBar>
