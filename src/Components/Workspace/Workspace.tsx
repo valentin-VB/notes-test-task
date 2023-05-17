@@ -1,8 +1,10 @@
 import { ICurrentNote } from "Services/types";
 import { useState, useEffect, useContext, useMemo } from "react";
 import { CurrentNoteText, InputState } from "../../App";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Button } from "@mui/material";
 import SimpleMDE, { SimpleMdeToCodemirrorEvents } from "react-simplemde-editor";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import remarkGfm from "remark-gfm";
 
 function Workspace({ note }: { note: ICurrentNote | null }) {
   const context = useContext(CurrentNoteText);
@@ -24,7 +26,10 @@ function Workspace({ note }: { note: ICurrentNote | null }) {
 
   const events = useMemo(() => {
     return {
-      blur: () => inputContext?.setIsBlur(true),
+      blur: () => {
+        // inputContext?.setIsMarkdownShown(false);
+        inputContext?.setIsBlur(true);
+      },
     } as SimpleMdeToCodemirrorEvents;
   }, [inputContext]);
 
@@ -42,6 +47,7 @@ function Workspace({ note }: { note: ICurrentNote | null }) {
 
     return {
       toolbar: toolbarButtons,
+      autoBlur: false,
     };
   }, []) as EasyMDE.Options;
 
@@ -57,17 +63,33 @@ function Workspace({ note }: { note: ICurrentNote | null }) {
       {note && (
         <>
           {shouldMarkdownShown ? (
-            <SimpleMDE
-              value={value}
-              events={events}
-              options={options}
-              onChange={(value) => {
-                setValue(value);
-                context?.setCurrentText(value);
-              }}
-            ></SimpleMDE>
+            <>
+              <SimpleMDE
+                value={value}
+                events={events}
+                options={options}
+                onChange={(value) => {
+                  setValue(value);
+                  context?.setCurrentText(value);
+                }}
+              ></SimpleMDE>
+              <Button
+                onClick={() => {
+                  inputContext?.setIsMarkdownShown(false);
+                }}
+                variant="contained"
+                sx={{ backgroundColor: "#94d2b1" }}
+              >
+                End Editing
+              </Button>
+            </>
           ) : (
-            <Typography sx={{ fontSize: "25px" }}>{value}</Typography>
+            value && (
+              <ReactMarkdown
+                children={value}
+                remarkPlugins={[remarkGfm]}
+              ></ReactMarkdown>
+            )
           )}
         </>
       )}

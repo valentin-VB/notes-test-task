@@ -13,7 +13,10 @@ function Header({ onAddBtnClick }: { onAddBtnClick: () => Promise<void> }) {
   const inputContext = useContext(InputState);
 
   const handleEditBtnClick = () => {
-    inputContext?.setIsMarkdownShown(true);
+    if (inputContext) {
+      const { setIsMarkdownShown, isMarkdownShown } = inputContext;
+      setIsMarkdownShown(!isMarkdownShown);
+    }
   };
 
   return (

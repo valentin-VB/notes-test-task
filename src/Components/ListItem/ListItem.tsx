@@ -29,9 +29,6 @@ function ListItem({
     setTitle(note.values[FIELD_ID]);
   }, [note]);
 
-  console.log("title:", title);
-  console.log("textContext?.currentText:", textContext?.currentText);
-
   return (
     <ListItemButton
       component="li"

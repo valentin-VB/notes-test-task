@@ -53,7 +53,6 @@ function App() {
         setIsNoteCreated(false);
         setIsNoteDelete(false);
         setIsBlur(false);
-        setIsMarkdownShown(false);
       }
     };
     fetchAllNotes();
