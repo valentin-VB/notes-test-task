@@ -3,6 +3,7 @@ import { INote } from "../../Services/types";
 import { getFirstKeyValue, getFormattedDate } from "Services/helpers";
 import { useContext, useEffect, useState } from "react";
 import { CurrentNote, CurrentNoteText } from "App";
+import { FIELD_ID } from "Services/api";
 
 function ListItem({
   note,
@@ -26,7 +27,7 @@ function ListItem({
     selected === index && textContext?.currentText?.length;
 
   useEffect(() => {
-    setTitle(note.values.ddGLe7j8nnE4oDAfXnWQrQ);
+    setTitle(note.values[FIELD_ID]);
   }, [note]);
 
   return (

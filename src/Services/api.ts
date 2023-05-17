@@ -1,16 +1,16 @@
 import axios from "axios";
 import { IValue } from "./types";
 import debounce from "lodash.debounce";
-
-const API_ID = "beb8ojj15oo4oEod7cSWKv";
+const API_ID = "ddKSkkW59cPzhdUSoDCmoY";
 const BASE_URL = `https://quintadb.com/apps/${API_ID}/dtypes`;
-const FORM_ID = "agi33dRsPhpA0GWPpdTGSv";
-const API_KEY = "ddQSk6WPXdIPZdMJVdShDR";
-export const FIELD_ID = "ddGLe7j8nnE4oDAfXnWQrQ";
+const FORM_ID = "czufDEW7vdUOrHhSouW5eG";
+const API_KEY = "cmW5Chl8jkoPhcSG1GW7DR";
+export const FIELD_ID = "ddS8ovxwLiW7boWOfEW7G5";
 
 export async function fetchNotes() {
   const url = `${BASE_URL}/entity/${FORM_ID}.json?rest_api_key=${API_KEY}`;
   const response = await axios.get(url);
+  console.log("response:", response);
 
   return response.data.records;
 }

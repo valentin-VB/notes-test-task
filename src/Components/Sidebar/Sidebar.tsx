@@ -1,6 +1,8 @@
 import { Filter, NotesContext } from "App";
 import ListItem from "Components/ListItem";
+import { FIELD_ID } from "Services/api";
 import { useContext, useState } from "react";
+import { Box } from "@mui/material";
 
 function Sidebar() {
   const notesContext = useContext(NotesContext);
@@ -15,13 +17,12 @@ function Sidebar() {
       const filterToLC = filter?.filter?.toLowerCase() ?? "";
       const isNoteEmpty = Object.keys(note.values).length === 0;
       return (
-        isNoteEmpty ||
-        note.values.ddGLe7j8nnE4oDAfXnWQrQ.toLowerCase().includes(filterToLC)
+        isNoteEmpty || note.values[FIELD_ID].toLowerCase().includes(filterToLC)
       );
     }) ?? [];
 
   return (
-    <div>
+    <Box sx={{ backgroundColor: "#cbcbcbf" }}>
       <ul>
         {visibleNotes.map((note, index) => (
           <ListItem
@@ -33,7 +34,7 @@ function Sidebar() {
           />
         ))}
       </ul>
-    </div>
+    </Box>
   );
 }
 

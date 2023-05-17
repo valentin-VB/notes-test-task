@@ -1,20 +1,13 @@
 import { ICurrentNote } from "Services/types";
-import TextareaAutosize from "@mui/material/TextareaAutosize";
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useContext, useMemo } from "react";
 import { CurrentNoteText, InputState } from "../../App";
-import { Button } from "@mui/material";
+import { Typography } from "@mui/material";
+import SimpleMDE, { SimpleMdeToCodemirrorEvents } from "react-simplemde-editor";
 
 function Workspace({ note }: { note: ICurrentNote | null }) {
   const context = useContext(CurrentNoteText);
   const inputContext = useContext(InputState);
   const [value, setValue] = useState("");
-  const inputRef = useRef<HTMLTextAreaElement>(null);
-
-  const handleButtonClick = () => {
-    // Set focus on the input element
-    console.log("inputRef:", inputRef);
-    inputRef.current && inputRef.current.focus();
-  };
 
   useEffect(() => {
     if (!note) return;
@@ -22,21 +15,36 @@ function Workspace({ note }: { note: ICurrentNote | null }) {
     context?.setCurrentText(note?.noteText || "");
   }, [note]);
 
+  const events = useMemo(() => {
+    return {
+      blur: () => inputContext?.setIsBlur(true),
+    } as SimpleMdeToCodemirrorEvents;
+  }, []);
+
+  // useEffect(() => {
+  //   if (inputContext && ref) {
+  //     inputContext.inputRef?.current = ref.current;
+  //   }
+  // }, [inputContext]);
+
   //   console.log("value:", value);
   return (
     <div>
       <span>{note?.updated_at}</span>
       {note && (
         <>
-          <TextareaAutosize
-            ref={inputRef}
-            value={value}
-            onBlur={() => inputContext && inputContext.setIsBlur(true)}
-            onChange={(e) => {
-              setValue(e.currentTarget.value);
-              context?.setCurrentText(e.currentTarget.value);
-            }}
-          ></TextareaAutosize>
+          {inputContext?.isMarkdownShown ? (
+            <SimpleMDE
+              value={value}
+              events={events}
+              onChange={(value) => {
+                setValue(value);
+                context?.setCurrentText(value);
+              }}
+            ></SimpleMDE>
+          ) : (
+            <Typography>{value}</Typography>
+          )}
         </>
       )}
     </div>

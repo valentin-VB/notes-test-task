@@ -15,7 +15,8 @@ import Workspace from "Components/Workspace/Workspace";
 import { debouncePutNewTitle } from "Services/api";
 import Header from "Components/Header/Header";
 import Modal from "Components/Modal/Modal";
-import { CircularProgress } from "@mui/material";
+import SimpleMDE from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
 
 export const NotesContext = createContext<INote[] | null>(null);
 export const CurrentNote = createContext<ICurrentNoteContext | null>(null);
@@ -39,8 +40,8 @@ function App() {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const [isFocused, setIsFocused] = useState(false);
   const [isBlur, setIsBlur] = useState(false);
+  const [isMarkdownShown, setIsMarkdownShown] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -96,6 +97,10 @@ function App() {
     }
   };
 
+  // const setInputRef = (ref: React.RefObject<HTMLInputElement>) => {
+  //   inputRef.current = ref.current;
+  // };
+
   return (
     <NotesContext.Provider value={notes}>
       <CurrentNote.Provider value={{ currentNote, setCurrentNote }}>
@@ -103,12 +108,17 @@ function App() {
           <Filter.Provider value={{ filter, setFilter }}>
             <ModalContext.Provider value={{ isOpen, setIsOpen }}>
               <InputState.Provider
-                value={{ isBlur, isFocused, setIsBlur, setIsFocused }}
+                value={{
+                  isBlur,
+                  setIsBlur,
+                  isMarkdownShown,
+                  setIsMarkdownShown,
+                }}
               >
                 <Header onAddBtnClick={handleAddBtnClick} />
                 <Grid container component="main">
                   <Grid item xs={12} md={3}>
-                    {isLoading && <CircularProgress />}
+                    {/* {isLoading && <CircularProgress />} */}
                     <Sidebar />
                   </Grid>
                   <Grid item xs={0} md={9}>

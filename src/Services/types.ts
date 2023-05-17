@@ -38,7 +38,7 @@ export interface IModalOpen {
 
 export interface IInputState {
   isBlur: boolean;
-  isFocused: boolean;
-  setIsFocused: React.Dispatch<React.SetStateAction<boolean>>;
+  isMarkdownShown: boolean;
+  setIsMarkdownShown: React.Dispatch<React.SetStateAction<boolean>>;
   setIsBlur: React.Dispatch<React.SetStateAction<boolean>>;
 }

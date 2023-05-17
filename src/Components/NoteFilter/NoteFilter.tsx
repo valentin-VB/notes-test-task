@@ -6,7 +6,6 @@ import { Filter } from "App";
 
 function NoteFilter() {
   const context = useContext(Filter);
-  console.log("context:", context);
   return (
     <TextField
       placeholder="Search"
