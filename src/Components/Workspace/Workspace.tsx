@@ -22,6 +22,7 @@ function Workspace({ note }: { note: ICurrentNote | null }) {
     if (!note) return;
     setValue(note?.noteText || "");
     context?.setCurrentText(note?.noteText || "");
+    inputContext?.setIsMarkdownShown(false);
   }, [note]);
 
   const events = useMemo(() => {
