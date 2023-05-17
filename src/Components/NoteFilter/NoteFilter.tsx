@@ -10,17 +10,17 @@ function NoteFilter() {
     <TextField
       placeholder="Search"
       fullWidth
-      size="small"
-      variant="filled"
       onChange={(e) => context?.setFilter(e.currentTarget.value)}
-      sx={{ maxWidth: "500px" }}
+      sx={{
+        maxWidth: "600px",
+        alignItems: "center",
+      }}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
             <SearchIcon />
           </InputAdornment>
         ),
-        disableUnderline: true,
       }}
     />
   );

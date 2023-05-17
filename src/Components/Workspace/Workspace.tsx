@@ -7,7 +7,14 @@ import SimpleMDE, { SimpleMdeToCodemirrorEvents } from "react-simplemde-editor";
 function Workspace({ note }: { note: ICurrentNote | null }) {
   const context = useContext(CurrentNoteText);
   const inputContext = useContext(InputState);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState<null | string>(null);
+
+  useEffect(() => {
+    if (value === null) return;
+    if (value === "") {
+      inputContext?.setIsMarkdownShown(true);
+    }
+  }, [inputContext, value]);
 
   useEffect(() => {
     if (!note) return;
@@ -38,6 +45,10 @@ function Workspace({ note }: { note: ICurrentNote | null }) {
     };
   }, []) as EasyMDE.Options;
 
+  const shouldMarkdownShown =
+    typeof value === "string" &&
+    (inputContext?.isMarkdownShown || value.length === 0);
+
   return (
     <Box sx={{ p: "20px" }}>
       <Typography sx={{ textAlign: "center", mb: "15px" }}>
@@ -45,7 +56,7 @@ function Workspace({ note }: { note: ICurrentNote | null }) {
       </Typography>
       {note && (
         <>
-          {inputContext?.isMarkdownShown ? (
+          {shouldMarkdownShown ? (
             <SimpleMDE
               value={value}
               events={events}
@@ -56,7 +67,7 @@ function Workspace({ note }: { note: ICurrentNote | null }) {
               }}
             ></SimpleMDE>
           ) : (
-            <Typography>{value}</Typography>
+            <Typography sx={{ fontSize: "25px" }}>{value}</Typography>
           )}
         </>
       )}

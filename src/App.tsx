@@ -81,6 +81,7 @@ function App() {
       await deleteNote(activeNote.id);
       setCurrentNote(null);
       setIsNoteDelete(true);
+      setCurrentText("");
     } catch (err) {
       console.warn("err", err);
     }
@@ -94,10 +95,6 @@ function App() {
       console.warn("err", err);
     }
   };
-
-  // const setInputRef = (ref: React.RefObject<HTMLInputElement>) => {
-  //   inputRef.current = ref.current;
-  // };
 
   return (
     <NotesContext.Provider value={notes}>
@@ -116,11 +113,10 @@ function App() {
                 <Header onAddBtnClick={handleAddBtnClick} />
 
                 <Grid container component="main">
-                  <Grid item xs={12} md={3}>
-                    {/* {isLoading && <CircularProgress />} */}
+                  <Grid item xs={12} sm={3}>
                     <Sidebar />
                   </Grid>
-                  <Grid item xs={12} md={9}>
+                  <Grid item xs={12} sm={9}>
                     <Workspace note={currentNote} />
                   </Grid>
                 </Grid>

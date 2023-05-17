@@ -13,11 +13,7 @@ function Header({ onAddBtnClick }: { onAddBtnClick: () => Promise<void> }) {
   const inputContext = useContext(InputState);
 
   const handleEditBtnClick = () => {
-    console.log(inputContext);
     inputContext?.setIsMarkdownShown(true);
-    // if (inputContext?.inputRef && inputContext?.inputRef.current) {
-    //   inputContext?.inputRef?.current.focus();
-    // }
   };
 
   return (
