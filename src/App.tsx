@@ -15,9 +15,7 @@ import Workspace from "Components/Workspace/Workspace";
 import { debouncePutNewTitle } from "Services/api";
 import Header from "Components/Header/Header";
 import Modal from "Components/Modal/Modal";
-import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
-import { Box } from "@mui/material";
 
 export const NotesContext = createContext<INote[] | null>(null);
 export const CurrentNote = createContext<ICurrentNoteContext | null>(null);
@@ -28,7 +26,6 @@ export const InputState = createContext<IInputState | null>(null);
 
 function App() {
   const [notes, setNotes] = useState<INote[] | []>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const [currentNote, setCurrentNote] = useState<ICurrentNote | null>(null);
@@ -45,7 +42,6 @@ function App() {
   const [isMarkdownShown, setIsMarkdownShown] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
     const fetchAllNotes = async () => {
       try {
         const result: INote[] = await fetchNotes();
@@ -54,7 +50,6 @@ function App() {
         setError(error);
         console.error(err);
       } finally {
-        setIsLoading(false);
         setIsNoteCreated(false);
         setIsNoteDelete(false);
         setIsBlur(false);
@@ -84,6 +79,7 @@ function App() {
   const handleDeleteBthClick = async (activeNote: ICurrentNote) => {
     try {
       await deleteNote(activeNote.id);
+      setCurrentNote(null);
       setIsNoteDelete(true);
     } catch (err) {
       console.warn("err", err);
