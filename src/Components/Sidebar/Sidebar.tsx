@@ -3,6 +3,7 @@ import ListItem from "Components/ListItem";
 import { FIELD_ID } from "Services/api";
 import { useContext, useState } from "react";
 import { Box } from "@mui/material";
+import { List } from "./Sidebar.styled";
 
 function Sidebar() {
   const notesContext = useContext(NotesContext);
@@ -22,27 +23,17 @@ function Sidebar() {
     }) ?? [];
 
   return (
-    <Box>
-      <Box
-        component="ul"
-        sx={{
-          backgroundColor: "#ecf5f0",
-          "@media (min-width: 600px)": {
-            height: "100vh",
-          },
-        }}
-      >
-        {visibleNotes.map((note, index) => (
-          <ListItem
-            key={note.id}
-            note={note}
-            index={index}
-            selected={selected}
-            onNoteClick={handleNoteClick}
-          />
-        ))}
-      </Box>
-    </Box>
+    <List>
+      {visibleNotes.map((note, index) => (
+        <ListItem
+          key={note.id}
+          note={note}
+          index={index}
+          selected={selected}
+          onNoteClick={handleNoteClick}
+        />
+      ))}
+    </List>
   );
 }
 

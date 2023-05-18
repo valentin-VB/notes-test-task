@@ -16,6 +16,8 @@ import { debouncePutNewTitle } from "Services/api";
 import Header from "Components/Header/Header";
 import Modal from "Components/Modal/Modal";
 import "easymde/dist/easymde.min.css";
+import axios from "axios";
+import SnackbarAlert from "Components/SnackbarAlert/SnackbarAlert";
 
 export const NotesContext = createContext<INote[] | null>(null);
 export const CurrentNote = createContext<ICurrentNoteContext | null>(null);
@@ -68,12 +70,11 @@ function App() {
           currentNote?.values
         );
       } catch (err) {
-        console.error("err:", err);
-      } finally {
+        handleError(err);
       }
     };
     putNewText();
-  }, [currentNote, currentText, notes, isBlur]);
+  }, [currentNote, currentText, notes, isBlur, error]);
 
   const handleDeleteBthClick = async (activeNote: ICurrentNote) => {
     try {
@@ -82,7 +83,7 @@ function App() {
       setIsNoteDelete(true);
       setCurrentText("");
     } catch (err) {
-      console.warn("err", err);
+      handleError(err);
     }
   };
 
@@ -91,9 +92,18 @@ function App() {
       await createNewNote(" ");
       setIsNoteCreated(true);
     } catch (err) {
-      console.warn("err", err);
+      handleError(err);
     }
   };
+
+  const handleError = (err: any) => {
+    if (axios.isAxiosError(err)) {
+      setError(err?.message);
+    }
+    console.error("error", err);
+  };
+
+  const onAlertClose = () => setError(null);
 
   return (
     <NotesContext.Provider value={notes}>
@@ -119,7 +129,7 @@ function App() {
                     <Workspace note={currentNote} />
                   </Grid>
                 </Grid>
-
+                {error && <SnackbarAlert text={error} onClose={onAlertClose} isOpen={Boolean(error)} type="error"  />}
                 <Modal handleDeleteBthClick={handleDeleteBthClick} />
               </InputState.Provider>
             </ModalContext.Provider>

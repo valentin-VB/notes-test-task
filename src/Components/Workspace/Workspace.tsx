@@ -1,15 +1,17 @@
 import { ICurrentNote } from "Services/types";
 import { useState, useEffect, useContext, useMemo } from "react";
 import { CurrentNoteText, InputState } from "../../App";
-import { Typography, Box, Button } from "@mui/material";
+import { Typography, Box, Button, Snackbar, Alert } from "@mui/material";
 import SimpleMDE, { SimpleMdeToCodemirrorEvents } from "react-simplemde-editor";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import remarkGfm from "remark-gfm";
+import SnackbarAlert from "Components/SnackbarAlert/SnackbarAlert";
 
 function Workspace({ note }: { note: ICurrentNote | null }) {
   const context = useContext(CurrentNoteText);
   const inputContext = useContext(InputState);
   const [value, setValue] = useState<null | string>(null);
+  const [openAlert, setOpenAlert] = useState(false);
 
   useEffect(() => {
     if (value === null) return;
@@ -52,6 +54,8 @@ function Workspace({ note }: { note: ICurrentNote | null }) {
     };
   }, []) as EasyMDE.Options;
 
+  const onAlertClose = () => setOpenAlert(false);
+
   const shouldMarkdownShown =
     typeof value === "string" &&
     (inputContext?.isMarkdownShown || value.length === 0);
@@ -77,6 +81,9 @@ function Workspace({ note }: { note: ICurrentNote | null }) {
               <Button
                 onClick={() => {
                   inputContext?.setIsMarkdownShown(false);
+                  if (value === "") {
+                    setOpenAlert(true);
+                  }
                 }}
                 variant="contained"
                 sx={{ backgroundColor: "#94d2b1" }}
@@ -92,6 +99,12 @@ function Workspace({ note }: { note: ICurrentNote | null }) {
               ></ReactMarkdown>
             )
           )}
+          <SnackbarAlert
+            isOpen={openAlert}
+            text=" You should write something first ..."
+            onClose={onAlertClose}
+            type="info"
+          ></SnackbarAlert>
         </>
       )}
     </Box>

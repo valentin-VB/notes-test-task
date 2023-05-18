@@ -34,8 +34,8 @@ function ListItem({
       component="li"
       selected={selected === index}
       sx={{
-        borderBottom: "1px solid #5db09a",
-        minHeight: "90px",
+        borderBottom: "3px solid #5db09a",
+        minHeight: "120px",
       }}
       onClick={() => {
         onNoteClick(index);
