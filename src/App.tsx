@@ -129,7 +129,14 @@ function App() {
                     <Workspace note={currentNote} />
                   </Grid>
                 </Grid>
-                {error && <SnackbarAlert text={error} onClose={onAlertClose} isOpen={Boolean(error)} type="error"  />}
+                {error && (
+                  <SnackbarAlert
+                    text={error}
+                    onClose={onAlertClose}
+                    isOpen={Boolean(error)}
+                    type="error"
+                  />
+                )}
                 <Modal handleDeleteBthClick={handleDeleteBthClick} />
               </InputState.Provider>
             </ModalContext.Provider>

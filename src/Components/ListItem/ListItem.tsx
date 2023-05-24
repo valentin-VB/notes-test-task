@@ -1,8 +1,8 @@
 import { ListItemButton, Typography, Box } from "@mui/material";
 import { INote } from "Services/types";
-import { getFormattedDate } from "Services/helpers";
+import { getFormattedDate, removeSymbols } from "Services/helpers";
 import { useContext, useEffect, useState } from "react";
-import { CurrentNote, CurrentNoteText } from "App";
+import { CurrentNote, CurrentNoteText, InputState } from "App";
 import { FIELD_ID } from "Services/api";
 
 function ListItem({
@@ -18,6 +18,7 @@ function ListItem({
 }) {
   const noteContext = useContext(CurrentNote);
   const textContext = useContext(CurrentNoteText);
+  const inputContext = useContext(InputState);
   const { updated_at, values, id } = note;
   const noteText = values[FIELD_ID];
   const formattedDate = getFormattedDate(updated_at);
@@ -55,7 +56,9 @@ function ListItem({
             textOverflow: "ellipsis",
           }}
         >
-          {shouldListTitleUpdate ? textContext?.currentText : title}
+          {shouldListTitleUpdate && inputContext?.isMarkdownShown
+            ? removeSymbols(textContext?.currentText)
+            : removeSymbols(title)}
         </Typography>
         <Typography>{formattedDate}</Typography>
       </Box>
