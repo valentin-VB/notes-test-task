@@ -120,7 +120,6 @@ function App() {
                 }}
               >
                 <Header onAddBtnClick={handleAddBtnClick} />
-
                 <Grid container component="main">
                   <Grid item xs={12} sm={3}>
                     <Sidebar />

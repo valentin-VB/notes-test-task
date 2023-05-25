@@ -61,7 +61,7 @@ function Workspace({ note }: { note: ICurrentNote | null }) {
     (inputContext?.isMarkdownShown || value.length === 0);
 
   return (
-    <Box sx={{ p: "20px" }}>
+    <Box sx={{ p: "20px", listStylePosition: "inside" }}>
       <Typography sx={{ textAlign: "center", mb: "15px" }}>
         {note?.updated_at}
       </Typography>

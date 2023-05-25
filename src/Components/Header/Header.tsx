@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Box, Button } from "@mui/material";
+import { AppBar, Toolbar, Box, Button, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useContext } from "react";
@@ -29,31 +29,39 @@ function Header({ onAddBtnClick }: { onAddBtnClick: () => Promise<void> }) {
         pb: "5px",
       }}
     >
-      <Toolbar
+      <Box
         sx={{
-          justifyContent: "space-between",
-          pl: "5px !important",
+          display: "flex",
+          alignItems: "center",
         }}
       >
-        <Box sx={{ display: "flex", flexWrap: "nowrap" }}>
-          <Button onClick={() => onAddBtnClick()}>
-            <AddIcon></AddIcon>
-          </Button>
-          <Button
-            disabled={!noteContext?.currentNote}
-            onClick={() => modalContext?.setIsOpen(true)}
-          >
-            <DeleteOutlineIcon />
-          </Button>
-          <Button
-            disabled={!noteContext?.currentNote}
-            onClick={() => handleEditBtnClick()}
-          >
-            <ModeEditOutlineIcon />
-          </Button>
-        </Box>
-        <NoteFilter />
-      </Toolbar>
+        <Toolbar
+          sx={{
+            justifyContent: "space-between",
+            pl: "5px !important",
+            width: "100%",
+          }}
+        >
+          <Box sx={{ display: "flex", flexWrap: "nowrap" }}>
+            <Button onClick={() => onAddBtnClick()}>
+              <AddIcon></AddIcon>
+            </Button>
+            <Button
+              disabled={!noteContext?.currentNote}
+              onClick={() => modalContext?.setIsOpen(true)}
+            >
+              <DeleteOutlineIcon />
+            </Button>
+            <Button
+              disabled={!noteContext?.currentNote}
+              onClick={() => handleEditBtnClick()}
+            >
+              <ModeEditOutlineIcon />
+            </Button>
+          </Box>
+          <NoteFilter />
+        </Toolbar>
+      </Box>
     </AppBar>
   );
 }
