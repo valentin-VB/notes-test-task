@@ -10,7 +10,7 @@ This is a React application that allows you to create, edit, and delete notes an
 ## Instructions to run the code:
 
 1. Clone the repository to your local machine using Git:
-   git clone https://github.com/valentin-VB/notes-test-task.git
+   git clone https://github.com/valentin-VB/react-notes
 
 2. Navigate to the project directory in your terminal:
    cd notes-test-task
